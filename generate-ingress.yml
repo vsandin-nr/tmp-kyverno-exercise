@@ -1,0 +1,21 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: generate-ingress-for-svc
+spec:
+  rules:
+  - name: match-svc
+    match:
+      any:
+      - resources:
+          kinds:
+          - Service
+    generate:
+      apiVersion: networking.k8s.io/v1
+      kind: Ingress
+      name: "{{ request.object.metadata.name }}-ingress"
+      namespace: "{{request.object.metadata.namespace }}"
+      data:
+        spec:
+          rules:
+            - host: "{{ request.object.metadata.name }}.{{ request.object.metadata.namespace }}.mydomain.com"
