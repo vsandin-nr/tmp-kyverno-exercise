@@ -1,0 +1,7 @@
+apiVersion: v1
+data:
+  domain: 1.2.3.4.nip.io
+kind: ConfigMap
+metadata:
+  creationTimestamp: null
+  name: ingress-domain-name
